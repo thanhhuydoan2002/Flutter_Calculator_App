@@ -21,9 +21,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 child: Container(
                   alignment: Alignment.bottomRight,
                   padding: const EdgeInsets.all(16),
-                  child: Text(
+                  child: const Text(
                     "0",  
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 48,
                       fontWeight: FontWeight.bold,
                     ),
@@ -32,7 +32,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 ),
               ),
             ),
-
 
             //buttons
 
