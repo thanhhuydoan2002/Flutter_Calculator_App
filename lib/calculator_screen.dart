@@ -9,6 +9,12 @@ class CalculatorScreen extends StatefulWidget {
 }
 
 class _CalculatorScreenState extends State<CalculatorScreen> {
+  String number1 = "";
+  String operand = "";
+  String number2 = "";
+
+  
+  
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -25,9 +31,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 child: Container(
                   alignment: Alignment.bottomRight,
                   padding: const EdgeInsets.all(16),
-                  child: const Text(
-                    "0",  
-                    style: TextStyle(
+                  child: Text(
+                    "$number1$operand$number2".isEmpty
+                    ? "0"
+                    : "$number1$operand$number2",  
+                    style: const TextStyle(
                       fontSize: 48,
                       fontWeight: FontWeight.bold,
                     ),
@@ -72,7 +80,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           borderRadius: BorderRadius.circular(100),
         ),
         child: InkWell(
-          onTap: () {},
+          onTap: () => onBtnTap(value),
           child: Center(
             child: Text(
               value, 
@@ -87,6 +95,39 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     );
   }
 
+  //######
+  void onBtnTap(String value){
+    //number1 operand number2
+    // 123       +     456
+
+    if (value != Btn.dot && int.tryParse(value) == null){
+      if (operand.isNotEmpty && number2.isNotEmpty){
+
+      }
+      operand = value;
+    }else if (number1.isEmpty || operand.isEmpty){
+      //number1 = "1.2"
+      if(value == Btn.dot && number1.contains(Btn.dot)) return;
+      if(value == Btn.dot && (number1.isEmpty || number1 == Btn.n0)){
+        // number1 = "" | "0"
+        value = "0.";
+      }
+      number1 += value;
+    }else if (number2.isEmpty || operand.isNotEmpty){
+      //number1 = "1.2"
+      if(value == Btn.dot && number2.contains(Btn.dot)) return;
+      if(value == Btn.dot && (number2.isEmpty || number2 == Btn.n0)){
+        // number1 = "" | "0"
+        value = "0.";
+      }
+      number2 += value;
+    }
+
+    setState(() {});
+  }
+
+
+  //######
   Color getBtnColor(value){
     return [Btn.del,Btn.clr].contains(value)?
         Colors.blueGrey
